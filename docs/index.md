@@ -1,4 +1,4 @@
-# Headline
+# Headlin
 
 > An awesome project
 
