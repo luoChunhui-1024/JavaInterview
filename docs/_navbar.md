@@ -8,5 +8,7 @@
 * JavaScript
     * [基础](/javascript/base.md)
     * [This](/javascript/this.md)
+	* [test](/test/test1.md)
+	* [test](/test/test2.md)
 
 ...
