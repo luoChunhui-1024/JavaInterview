@@ -168,10 +168,10 @@ void bfs(int s){    // s 为选定的遍历图的起点
 
 DFS:
 
-![img](file:///C:/Users/324014978/Documents/My Knowledge/temp/9cca2cf0-8250-434d-ab59-12866a32a2fb/128/index_files/f4811e22-e882-41c3-81b6-b973c3072d75.jpg)
+![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/bfs.png)
 
 
 
 BFS:
 
-![img](file:///C:/Users/324014978/Documents/My Knowledge/temp/9cca2cf0-8250-434d-ab59-12866a32a2fb/128/index_files/05aaeb57-1369-488c-a550-54cb8ae0c3d5.jpg)
+![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/dfs.png)
