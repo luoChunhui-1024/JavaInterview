@@ -1,66 +1,59 @@
-## 反射常见面试题
+### 参考
 
-### 简单介绍一下反射
+[字典树(前缀树)](https://blog.csdn.net/weixin_39778570/article/details/81990417)
 
-思路：概述 --- 获取字节码对象的方式 -- 方法的使用 --- 优缺点 -- 使用场景
+[Trie树（字典树，前缀树，键树）分析详解](https://blog.csdn.net/hyman_yx/article/details/54410619)
 
-#### 概述
+[Trie Tree 的实现 (适合初学者)](https://leetcode-cn.com/problems/implement-trie-prefix-tree/solution/trie-tree-de-shi-xian-gua-he-chu-xue-zhe-by-huwt/)
 
-​    JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；利用class 字节码对象，可以使得对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。
+https://leetcode-cn.com/problems/implement-trie-prefix-tree/solution/shi-xian-trie-qian-zhui-shu-by-leetcode/
 
-#### 获取 Class 字节码对象的方法
+[数据结构之Hash树](https://blog.csdn.net/qq_35794278/article/details/80242382)
 
-1. Object类的getClass()方法,判断两个对象是否是同一个字节码文件
-2. 静态属性class,锁对象
-3. Class类中静态方法forName(),读取配置文件， 类名必须是完整类名
+### 概述
 
-#### 方法的使用：
+字典树(TrieTree)，又称单词查找树或键树，是一种树形结构，是一种哈希树的变种。
 
-通过调用相应的get()方法，我们可以获取到相应的field，Method 和 Constructor ，如果是这些字段或方法不是公有的，那么还需要用setAccessible() 来修改访问权限，最后用某个实例对象作为参数即可调用我们想要执行的方法或修改某个字段。
+Trie的核心思想是空间换时间，利用字符串的公共前缀来降低查询时间的开销以达到提高效率的目的。
 
-#### 反射机制优缺点
+**它有3个基本性质：**
+根节点不包含字符，除根节点外每一个节点都只包含一个字符。
+从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串。
+每个节点的所有子节点包含的字符都不相同。
 
-优点：可扩展性高，在运行时进行类型的判断，动态加载类，可以提高代码灵活度。
+### ![img](![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/trie.jpg))
 
-缺点：
+### 应用
 
-1、因为反射涉及了动态类型的解析，所以 JVM 无法对这些代码进行优化。因此，反射操作的效率要比那些非反射操作低得多。
+Trie树典型应用是用于快速检索（最长前缀匹配），自动补全，拼写检查，统计，排序和保存大量的字符串，所以经常被搜索引擎系统用于文本词频统计，搜索提示等场景。它的优点是最大限度地减少无谓的字符串比较，查询效率比较高。
 
-2、安全问题，让我们可以动态操作改变类的属性同时也增加了类的安全隐患。比如利用反射给类型为 Integer 的List 添加Sting 元素 
+### Trie树与二叉搜索树
 
-#### 使用场景：
+数据规模为n时，二叉搜索树插入、查找、删除操作的时间复杂度通常只有O(logn)，最坏情况下整棵树所有的节点都只有一个子节点，退变成一个线性表，此时插入、查找、删除操作的时间复杂度是O(n)。
 
-1. 动态代理
-2. 我们在使用JDBC连接数据库时使用Class.forName()通过反射加载数据库的驱动程序；
-3. Spring框架也用到很多反射机制，最经典的就是xml的配置模式。Spring  通过 XML 配置模式装载 Bean 的过程：1) 将程序内所有 XML 或 Properties 配置文件加载入内存中;  2)Java类里面解析xml或properties里面的内容，得到对应实体类的字节码字符串以及相关的属性信息;  3)使用反射机制，根据这个字符串获得某个类的Class实例; 4)动态配置实例的属性。
-4. 对象的反序列化
+   通常情况下，Trie树的高度n要远大于搜索字符串的长度m，故查找操作的时间复杂度通常为O(m)，最坏情况下（当字符串非常长）的时间复杂度才为O(n)。很容易看出，Trie树最坏情况下的查找也快过二叉搜索树。
 
-### 静态编译和动态编译
+### Trie树与Hash表
 
-- **静态编译：**在编译时确定类型，绑定对象
-- **动态编译：**运行时确定类型，绑定对象
+既然有了其他的数据结构，如平衡树和哈希表，使我们能够在字符串数据集中搜索单词。为什么我们还需要 Trie 树呢？尽管哈希表可以在 O(1) 时间内寻找键值，却无法高效的完成以下操作：
 
-## 泛型常见面试题
+- 找到具有同一前缀的全部键值。
+- 按词典序枚举字符串的数据集。
 
-### 1、Java中的泛型是什么 ? 使用泛型的好处是什么?
+Trie 树优于哈希表的另一个理由是，随着哈希表大小增加，会出现大量的冲突，时间复杂度可能增加到 O(n)，其中 n 是插入的键的数量。与哈希表相比，Trie 树在存储多个具有相同前缀的键时可以使用较少的空间。此时 Trie 树只需要O(m) 的时间复杂度，其中 m 为键长。而在平衡树中查找键值需要 O(mlogn) 时间复杂度。
 
-**泛型就是在方法中或类中或集合中可以传入不同的类型，提高类，集合，方法的通用性。没有泛型的情况的下，通过对类型Object的引用来实现参数的“任意化”，但是在实际的使用中，会有类型转换异常的问题。所以Java提供了泛型来解决这个安全问题。它提供了编译期的类型安全，确保你只能把正确类型的对象放入集合中，避免了在运行时出现ClassCastException。**
+### 定义类 Trie
 
-#### 
+正常的树节点定义是怎么样的
 
-没有泛型的情况的下，通过**对类型Object的引用**来实现参数的`“任意化”`，存数据的时候因为类型是Object, 所以任何对象都能存进去，但是使用的时候对取出来的元素进行强制类型转换，`“任意化”`带来的缺点是要做 显式的强制类型转换，而这种转换是要求开发者对实际参数类型可以预知的情况下进行的。对于强制类型转换错误的情况 ，编译器可能不提示错误，在运行的时候才出现异常，这是一个**安全隐患**。
+```
+struct TreeNode {
+    VALUETYPE value;    //结点值
+    TreeNode* children[NUM];    //指向孩子结点
+};
+```
 
-### 2、Java的泛型是如何工作的 ? 什么是类型擦除 ?
-
-
-
-Java 中的泛型是伪泛型，为什么说它是伪泛型呢？因为它采用的是类型擦除的方式来实现的。编译器在编译时擦除了所有类型相关的信息，所以在运行时不存在任何类型相关的信息。我们无法在运行时访问到类型参数，因为编译器已经把泛型类型转换成了原始类型。Java 中的泛型仅用于编译器做类型检查,就是保证我们代码写的不会出现类型错误。 List\<String\>,List\<Integer\>编译之后可以理解成统统变成List\<Object\>了，而之所以在使用内部元素的时候察觉不到泛型被擦除了，觉得这个ArrayList 正是按我们设定的泛型来使用元素，是因为编译的时候凡是使用到了泛型的地方，编译器自动加上了类型强转，我们也察觉不到泛型被擦除了。又因为加上了强转，所以擦除掉泛型也不会出问题。
-
-证明类型擦除的方式有三种，
-
-一种是定义两个数组列表，一个是参数为 String 的 ArrayList, l另一个是参数为 Integer 的ArrayList , 对这两个对象分别调用getClass()方法然后做等等于的运算，会发现结果是返回 true
-
-
+下面是Trie的结点定义，体会二者的不同
 
 
 
@@ -81,119 +74,14 @@ Java 中的泛型是伪泛型，为什么说它是伪泛型呢？因为它采用
 
 
 ```
-        ArrayList<String> arrayList1=new ArrayList<String>();
-        arrayList1.add("abc");
-        ArrayList<Integer> arrayList2=new ArrayList<Integer>();
-        arrayList2.add(123);
-        System.out.println(arrayList1.getClass()==arrayList2.getClass());
-```
+class Trie {
 
+    boolean isEnd = false;      // 标记是否为最终结点
+    Trie[] next;        // 所有孩子结点
 
-
-
-
-
-
-第二种是用反射获取一个 泛型类型为 Integer 的 ArrayList 的 add 方法，给这add 方法传参 Object.class， 然后调用 invoke() 存入一个字符串，会发现存入成功，这也说明泛型在运行时不存在的。
-
-第三种是通过反编译代码来证明
-
-
-
-### 3、什么是泛型中的限定通配符和非限定通配符 ?
-
-　　这是另一个非常流行的Java泛型面试题。限定通配符对类型进行了限制。有两种限定通配符，一种是\<? extends T\>它通过确保类型必须是T的子类来设定类型的上界，另一种是\<? super T\>它通过确保类型必须是T的父类来设定类型的下界。泛型类型必须用限定内的类型来进行初始化，否则会导致编译错误。另一方面\<?\>表示了非限定通配符，因为\<?\>可以用任意类型来替代。更多信息请参阅我的文章泛型中限定通配符和非限定通配符之间的区别。
-
-### 4、List\<? extends T\>和List \<? super T\>之间有什么区别 ?
-
-　　这和上一个面试题有联系，有时面试官会用这个问题来评估你对泛型的理解，而不是直接问你什么是限定通配符和非限定通配符。这两个List的声明都是限定通配符的例子，List\<? extends T\>可以接受任何继承自T的类型的List，而List\<? super T\>可以接受任何T的父类构成的List。例如List\<? extends Number\>可以接受List\<Integer\>或List\<Float\>。在本段出现的连接中可以找到更多信息。
-
-### 5、如何编写一个泛型方法，让它能接受泛型参数并返回泛型类型?
-
-　　编写泛型方法并不困难，你需要用泛型类型来替代原始类型，比如使用T, E or K,V等被广泛认可的类型占位符。泛型方法的例子请参阅Java集合类框架。最简单的情况下，一个泛型方法可能会像这样:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-```
-public V put(K key, V value) {
-    return cache.put(key, value);
-}
-```
-
-
-
-
-
-###  6、Java中如何使用泛型编写带有参数的类?
-
-​     public class 类名\<泛型类型1,…\>
-
-　　这是上一道面试题的延伸。面试官可能会要求你用泛型编写一个类型安全的类，而不是编写一个泛型方法。关键仍然是使用泛型类型来代替原始类型，而且要使用JDK中采用的标准占位符。
-
-### 7、编写一段泛型程序来实现LRU缓存?
-
-accessOrder 决定了顺序，默认为 false，**此时维护的是插入顺序**。
-
-LinkedHashMap 最重要的是以下用于维护顺序的函数，它们会在 put、get 等方法中调用。
-
-##### afterNodeAccess()
-
-当一个节点被访问时，如果 accessOrder 为 true，则会将该节点移到链表尾部。也就是说指定为 LRU 顺序之后，在每次访问一个节点时，会将这个节点移到链表尾部，保证链表尾部是最近访问的节点，那么链表首部就是最近最久未使用的节点。（类似于维护一个栈，每次把最新访问过的数据放到栈底，最近最久未使用的元素始终呈现在栈顶）
-
-##### afterNodeInsertion()
-
-在 put 等操作之后执行，当 removeEldestEntry() 方法返回 true 时会移除最晚的节点，也就是链表首部节点 first。
-
-以下是使用 LinkedHashMap 实现的一个 LRU 缓存：
-
-- 设定最大缓存空间 MAX_ENTRIES 为 3；
-- 使用 LinkedHashMap 的构造函数将 accessOrder 设置为 true，开启 LRU 顺序；
-- 覆盖 removeEldestEntry() 方法实现，在节点多于 MAX_ENTRIES 就会将最近最久未使用的数据移除。
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-```
-class LRUCache<K, V> extends LinkedHashMap<K, V> {
-    private static final int MAX_ENTRIES = 3;
-    protected boolean removeEldestEntry(Map.Entry eldest) {
-        return size() > MAX_ENTRIES;
-    }
-    LRUCache() {
-        super(MAX_ENTRIES, 0.75f, true);
+    /** Initialize your data structure here. */
+    public Trie() {
+        next = new Trie[26];    // 26个孩子结点
     }
 }
 ```
@@ -202,46 +90,11 @@ class LRUCache<K, V> extends LinkedHashMap<K, V> {
 
 
 
+### 插入
 
+描述：向 Trie 中插入一个单词 word
 
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-```
-public static void main(String[] args) {
-        LRUCache cache = new LRUCache();
-        cache.put(1, "a");
-        System.out.println(cache.keySet());
-        cache.put(2, "b");
-        System.out.println(cache.keySet());
-        cache.put(3, "c");
-        System.out.println(cache.keySet());
-        cache.put(4, "d");
-        System.out.println(cache.keySet());
-        cache.get(1);
-        System.out.println(cache.keySet());
-        cache.put(5, "e");
-        System.out.println(cache.keySet());
-    }
-
-```
-
-
-
-
+实现：这个操作和构建链表很像。首先从根结点的子结点开始与 word 第一个字符进行匹配，一直匹配到前缀链上没有对应的字符，这时开始不断开辟新的结点，直到插入完 word 的最后一个字符，同时还要将最后一个结点isEnd = true;，表示它是一个单词的末尾。
 
 
 
@@ -262,161 +115,116 @@ public static void main(String[] args) {
 
 
 ```
-[1]
-[1, 2]
-[1, 2, 3]
-[1, 2, 3, 4]
-[2, 3, 4, 1]
-[3, 4, 1, 5]
-```
-
-
-
-
-
-### 8、可以把List\<String\>传递给一个接受List\<Object\>参数的方法吗？
-
-​    不行
-
-　　这样做的话会导致编译错误。因为List\<Object\>可以存储任何类型的对象包括String, Integer等等，而List\<String\>却只能用来存储Strings。　
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-```
-       List\<Object\> objectList;
-       List\<String\> stringList;
-       objectList = stringList;  //compilation error incompatible types
-```
-
-
-
-
-
-### 9、Array中可以用泛型吗?
-
-数组就允许将子类数组引用赋值给父类数组，而我们的泛型要求不能这么干，所以导致无法在编译期检查数组的类型安全问题，这个与泛型的初衷相违背，导致数组无法使用泛型。所以泛型一般用在集合中。
-
-如果非要泛型数组的话，可以定义一个带泛型的类，在这个类中定义一个同类型的数组，
-
-### 10、泛型要注意哪些问题：
-
-1、泛型类型不能显式地运用在运行时类型的操作当中，例如：转型、`instanceof` 和 `new`。因为在运行时，所有参数的类型信息都丢失了。
-
-使用带有泛型类型参数的转型或者`instanceof`不会有任何效果。因为他们在运行时都会被擦除到上边界上。所以转型的时候用的类型实际上是上边界对应的类型。
-
-不能`new T()`的原因有两个，一是因为擦除，不能确定类型；而是无法确定`T`是否包含无参构造函数。
-
-2、任何基本类型都不能作为类型参数
-
-3、重载的两个函数如果仅仅是参数类型不同，这两个参数类型不能都是泛型类型，否则可能会报错 both methods have same erasure。那是因为由于擦除的原因，重载方法将产生相同的类型签名。避免这种问题的方法就是换个方法名。
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-```java
-class UseList{
-    <W> void f(W  v){}
-    <T> void f(T v){};
-}
-```
-
-
-
-
-
-### 11、 \<T extends Comparable\<? super T\>\> 与 \<T extends Comparable\<T\>\>的区别
-
-如果用的是 \<T extends Comparable\<? super T\>\> 那么只要实参类型或实参类型的父类实现了 Comparable 接口，那 这个实参类型就可以用这个方法，
-
-而如果 用的是 \<T extends Comparable\<T\>\> 声明泛型的话，只有当实参类型实现了 Comparable 接口，他才可以使用这个方法，就算它的父类实现这个方法也不行。
-
-\<T extends Comparable\<? Super T\>\> 相比于 \<T extends Comparable\<T\>\> 有更好的通用性。
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-```
-// 实参必须是Number的子类，且实参或者实参的父类必须实现了 Comparable接口
-    private static <T extends Number & Comparable<T>> T min(T[] values){
-        if(values == null || values.length == 0){
-            return null;
+public void insert(String word) {
+    // 有则共享且继续向下遍历，否则新建结点
+    Trie node = this;       // node指针用来遍历
+    for(char ch : word.toCharArray()){
+        int index = ch - 'a';
+        if(node.next[index] == null){   // 新建结点
+            node.next[index] = new Trie();
         }
-        T min = values[0];
-        for(int i = 1; i < values.length; i++){
-            if(min.compareTo(values[i])> 0){
-                min = values[i];
-            }
-        }
-
-        return min;
+        node = node.next[index];    // 指针后移
     }
+    node.isEnd = true;      // 标记为最终结点
+}
 ```
 
 
 
 
 
-#### 小插曲：
+### 查找
 
-> ####  extends关键字声明中，有两个要注意的地方：  
+描述：查找 Trie 中是否存在单词 word
 
-1. 类必须要写在接口之前；
-2. 只能设置一个类做边界，其它均为接口。
-
-## 参考文章：
+实现：从根结点的子结点开始，一直向下匹配即可，如果出现结点值为空就返回 false，如果匹配到了最后一个字符，那我们只需判断 node->isEnd即可。
 
 
 
-https://cloud.tencent.com/developer/article/1033693
 
-[什么是反射？反射机制的应用场景有哪些？](https://www.cnblogs.com/wylwyl/p/10244860.html)[10 道 Java 泛型面试题](https://cloud.tencent.com/developer/article/1033693) （强推）
 
-[Java 泛型进阶](https://cloud.tencent.com/developer/article/1334696) （强推）
 
-[Java中数组为什么不支持泛型，集合却支持泛型？ ](https://blog.csdn.net/caoyuanyenang/article/details/101726934)
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+```
+public boolean find(String word) {
+    // 有则共享且继续向下遍历，否则新建结点
+    Trie node = this;       // node指针用来遍历
+    for(char ch : word.toCharArray()){
+        int index = ch - 'a';
+        if(node.next[index] == null){   // 新建结点
+            return false;
+        }
+        node = node.next[index];    // 指针后移
+    }
+    return node.isEnd;
+}
+```
+
+
+
+
+
+### 前缀匹配
+
+描述：判断 Trie 中是或有以 prefix 为前缀的单词
+
+实现：和 search 操作类似，只是不需要判断最后一个字符结点的isEnd，因为既然能匹配到最后一个字符，那后面一定有单词是以它为前缀的
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+```
+public boolean startsWith(String prefix) {
+    // 和search方法其实差不多，但是结束判断后直接返回true, 因为是判断前缀而已
+    Trie node = this;
+    for(char ch : prefix.toCharArray()){
+        int index = ch - 'a';
+        if(node.next[index] == null){
+            return false;
+        }
+        node = node.next[index];    // 指针后移
+    }
+    return true;
+}
+```
+
+
+
+
+
+**总结**
+
+通过以上介绍和代码实现我们可以总结出 Trie 的几点性质：
+
+- Trie 的形状和单词的插入或删除顺序无关，也就是说对于任意给定的一组单词，Trie 的形状都是唯一的。
+- 查找或插入一个长度为 L 的单词，访问 next 数组的次数最多为 L+1，和 Trie 中包含多少个单词无关。
+- Trie 的每个结点中都保留着一个字母表，这是很耗费空间的。如果 Trie 的高度为 n，字母表的大小为 m，最坏的情况是 Trie 中还不存在前缀相同的单词，那空间复杂度就为 O(m^n)。
+
+最后，关于 Trie 的应用场景，希望你能记住 8 个字：**一次建树，多次查询**。
