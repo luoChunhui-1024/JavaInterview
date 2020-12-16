@@ -3117,7 +3117,7 @@ Error我觉得是代码逻辑错误或者是外部资源不足，Exception一般
 
 
 
-​                ![img](http://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/static/img/java/exception.png)
+​                ![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/static/img/java/exception.png)
 
 ![ddd](https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4207578672,1058536368&fm=15&gp=0.jpg)
 
