@@ -1,5 +1,7 @@
 ## **图的 DFS 与 BFS 复杂度分析**
 
+> 来源：[图的 DFS 与 BFS 复杂度分析](https://www.cnblogs.com/hi3254014978/p/12627861.html)
+
 ### DFS的复杂度分析:
 
 ​    对于邻接表的存储方式：因为邻接表中每条链表上从第2个结点到表尾结点一定是表头结点的邻接点，所以遍历表头结点的邻接点的过程中只需要遍历这些顶点即可，无需遍历其他的顶点，所以遍历某个顶点的所有邻接点的复杂度为O(ei), ei为每个顶点的邻接点个数,也就是每条链表的边数。所以邻接表版的 dfs 遍历所有邻接点的时间复杂度为 O(e1 + e2 + e3 + .... + en) ，因为所有边数之和为 E , 所以时间复杂度为 O(E) ， 又因为访问每个顶点都必须被访问一次, 比如设置vis[i] = true， 这个操作一共要执行 V  次，所以，设置所有顶点为已访问的时间复杂度为O(V), 所以总的时间为查找所有邻接点的时间加上设置每个顶点为已访问的时间，总的时间为 O(E) + O(V) = O(E + V)。
@@ -168,17 +170,13 @@ void bfs(int s){    // s 为选定的遍历图的起点
 
 DFS:
 
-![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/bfs.png)
+![img](https://img2020.cnblogs.com/blog/1456655/202004/1456655-20200403174111579-36055159.jpg)
 
 
 
 BFS:
 
-![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/dfs.png)
-
-![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/1.jpg)
+![img](https://img2020.cnblogs.com/blog/1456655/202004/1456655-20200403174112605-1659680119.jpg)
 
 
-
-![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/1.jpg)![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/3.jpg)
 
