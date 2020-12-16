@@ -175,3 +175,10 @@ DFS:
 BFS:
 
 ![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/dfs.png)
+
+![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/1.jpg)
+
+
+
+![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/1.jpg)![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/java/img/3.jpg)
+
