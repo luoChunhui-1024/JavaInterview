@@ -308,9 +308,7 @@ value 数组被声明为 final，这意味着 value 数组初始化之后就不�
 
 如果一个 String 对象已经被创建过了，那么就会从 String Pool 中取得引用。只有 String 是不可变的，才可能使用 String Pool。
 
-​                                ![img](file:///static/img/java/string.png)
-
-
+​                                ![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/static/img/java/string.png)
 
 #### 3. 安全性
 
@@ -3119,7 +3117,7 @@ Error我觉得是代码逻辑错误或者是外部资源不足，Exception一般
 
 
 
-​                ![img](file:///static/img/java/exception.png)
+​                ![img](https://github.com/luoChunhui-1024/JavaInterview/blob/master/docs/static/img/java/exception.png)
 
 ## 九、泛型
 
